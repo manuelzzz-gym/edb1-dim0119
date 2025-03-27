@@ -4,24 +4,24 @@ using namespace std;
 
 int jump_search(int lista[], int target, int tamanho)
 {
-    int jump = sqrt(tamanho);
+    if (tamanho <= 0)
+        return -1;
 
-    for (int i = 0; i < tamanho; i += jump)
+    int tamanhoJump = sqrt(tamanho);
+    int anterior = 0;
+    int atual = 0;
+
+    while (atual < tamanho && lista[atual] < target)
+    {
+        anterior = atual;
+        atual += tamanhoJump;
+    }
+
+    for (int i = anterior; i <= min(atual, tamanho - 1); i++)
     {
         if (lista[i] == target)
         {
             return i;
-        }
-        if (lista[i] > target)
-        {
-            for (int j = i - jump; j < i; j++)
-            {
-                if (lista[j] == target)
-                {
-                    return j;
-                }
-            }
-            return -1;
         }
     }
 
